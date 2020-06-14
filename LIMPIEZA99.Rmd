@@ -1,0 +1,58 @@
+
+```{r}
+library(haven)
+PROTESTA <- read_sav("C:/Users/Fernando Peñaranda/Downloads/1941750101Peru LAPOP AmericasBarometer 2014 Espanol v3.0_W.sav")
+View(PROTESTA)
+#elimino columnas que no sirven
+names(PROTESTA)
+PROTESTA[,-c(7,8,9,11,16,18,34,35,39,40)] =NULL
+names(PROTESTA)
+```
+
+
+```{r}
+#CAMBIAR NOMBRES PARA ENTENDERLO MEJOR
+names(PROTESTA)[names(PROTESTA)=="prov"]="DEPARTAMENTO"
+names(PROTESTA)[names(PROTESTA)=="municipio"]="MUNICIPIO"
+names(PROTESTA)[names(PROTESTA)=="perprov"]="PRVINCIA"
+names(PROTESTA)[names(PROTESTA)=="idiomaq"]="IDIOMA"
+names(PROTESTA)[names(PROTESTA)=="q1"]="SEXO"
+names(PROTESTA)[names(PROTESTA)=="q2"]="EDAD"
+names(PROTESTA)[names(PROTESTA)=="cp13"]="PARTIDOS"
+names(PROTESTA)[names(PROTESTA)=="l1"]="IDEOLOGIA"
+names(PROTESTA)[names(PROTESTA)=="prot3"]="PROTESTA"
+names(PROTESTA)[names(PROTESTA)=="cp8"]="ASISTENCIA"
+```
+
+
+```{r}
+#CAMBIAR LOS VALORES PARA ENTENDER LO QUE SIGNIFICAN
+PROTESTA$ur <- gsub("1","Urbano",PROTESTA$ur)
+PROTESTA$ur <- gsub("2","Rural",PROTESTA$ur)
+PROTESTA$SEXO <- gsub("1","Hombre",PROTESTA$SEXO)
+PROTESTA$SEXO <- gsub("2","Mujer",PROTESTA$SEXO)
+PROTESTA$ASISTENCIA <- gsub("1","Una vez a la semana",PROTESTA$ASISTENCIA)
+PROTESTA$ASISTENCIA <- gsub("2","Una o dos veces al mes",PROTESTA$ASISTENCIA)
+PROTESTA$ASISTENCIA <- gsub("3","Una o dos veces al año",PROTESTA$ASISTENCIA)
+PROTESTA$ASISTENCIA <- gsub("4","Nunca",PROTESTA$ASISTENCIA)
+PROTESTA$PROTESTA <- gsub("1","SI PARTICIPO",PROTESTA$PROTESTA)
+PROTESTA$PROTESTA <- gsub("2","NO PARTICIPO",PROTESTA$PROTESTA)
+PROTESTA$PARTIDOS <- gsub("1","Una vez a la semana",PROTESTA$PARTIDOS)
+PROTESTA$PARTIDOS <- gsub("2","Una o dos veces al mes",PROTESTA$PARTIDOS)
+PROTESTA$PARTIDOS <- gsub("3","Una o dos veces al año",PROTESTA$PARTIDOS)
+PROTESTA$PARTIDOS <- gsub("4","Nunca",PROTESTA$PARTIDOS)
+```
+
+
+```{r}
+#IDEOLOGIA VA DE UNA ESCALA DEL 1-10 SIENDO 1 IZQUIERDA Y 10 DERECHA
+#FUTUROS CLUSTERS
+PROTESTA=na.omit(PROTESTA)
+PROTESTA[!complete.cases(PROTESTA),]
+```
+
+```{r}
+#BASE A USAR MAS ADELANTE
+PUCP <- read_sav("C:/Users/Fernando Peñaranda/Downloads/IOP_1112_01_D.sav")
+names(PUCP)
+```
