@@ -1,5 +1,4 @@
 #BASE LAPOP
-
 library(haven)
 PROTESTA <- read_sav("C:/Users/Fernando Peñaranda/Downloads/1941750101Peru LAPOP AmericasBarometer 2014 Espanol v3.0_W.sav")
 View(PROTESTA)
@@ -12,9 +11,7 @@ library(stringr)
 install.packages("magrittr")
 library(magrittr)
 names(PROTESTA)
-
 #elimino columnas que no sirven
-
 PROTESTA$idnum=NULL
 PROTESTA$estratopri=NULL
 PROTESTA$estratosec=NULL
@@ -51,9 +48,7 @@ PROTESTA$vic1ext=NULL
 PROTESTA$vic1exta=NULL
 names(PROTESTA)
 PROTESTA[,c(17:184)]=NULL
-
 #CAMBIAR NOMBRES PARA ENTENDERLO MEJOR
-
 names(PROTESTA)[names(PROTESTA)=="prov"]="DEPARTAMENTO"
 names(PROTESTA)[names(PROTESTA)=="municipio"]="MUNICIPIO"
 names(PROTESTA)[names(PROTESTA)=="perprov"]="PRVINCIA"
@@ -64,9 +59,7 @@ names(PROTESTA)[names(PROTESTA)=="cp13"]="PARTIDOS"
 names(PROTESTA)[names(PROTESTA)=="l1"]="IDEOLOGIA"
 names(PROTESTA)[names(PROTESTA)=="prot3"]="PROTESTA"
 names(PROTESTA)[names(PROTESTA)=="cp8"]="ASISTENCIA"
-
 #CAMBIAR LOS VALORES PARA ENTENDER LO QUE SIGNIFICAN
-
 PROTESTA$pais <- gsub("11","Perú",PROTESTA$pais)
 PROTESTA$ur <- gsub("1","Urbano",PROTESTA$ur)
 PROTESTA$ur <- gsub("2","Rural",PROTESTA$ur)
@@ -83,11 +76,16 @@ PROTESTA$PARTIDOS <- gsub("1","Una vez a la semana",PROTESTA$PARTIDOS)
 PROTESTA$PARTIDOS <- gsub("2","Una o dos veces al mes",PROTESTA$PARTIDOS)
 PROTESTA$PARTIDOS <- gsub("3","Una o dos veces al año",PROTESTA$PARTIDOS)
 PROTESTA$PARTIDOS <- gsub("4","Nunca",PROTESTA$PARTIDOS)
-
+#LIMPIAR PARTE 2
+PROTESTA$vic2=NULL
+PROTESTA$vic2aa=NULL
+PROTESTA$vic1hogar=NULL
+PROTESTA$pole2n=NULL
+PROTESTA$aoj11=NULL
+#IDEOLOGIA VA DE UNA ESCALA DEL 1-10 SIENDO 1 IZQUIERDA Y 10 DERECHA
 #FUTUROS CLUSTERS
 PROTESTA=na.omit(PROTESTA)
 PROTESTA[!complete.cases(PROTESTA),]
 
-
-
-
+#BASE DE OPINION PUBLICA PUCP
+PUCP <- read_sav("C:/Users/Fernando Peñaranda/Downloads/IOP_1112_01_D.sav")
